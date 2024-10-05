@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+    <head>
+
+        <title>Openweathermap API (Application Programming Interface)</title>
+        <style type="text/css">
+
+            body{
+                height: 100vh;
+
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+
+            .container{
+                width: 300px;
+                background-color: #f4f4f4;
+                padding: 10px;
+            }
+
+        </style>
+
+    </head>
+    <body>
+
+        <div class="container">
+            <div id="display"></div>
+            <button type="button" id="btn">Load data</button>
+        </div>
+
+        <script type="text/javascript">
+
+            const getdisplay = document.getElementById('display');
+            const getbtn = document.getElementById('btn');
+
+            getbtn.addEventListener('click',function(){
+                loaddata();
+            })
+
+            function loaddata(){
+
+                let url = `https://api.chucknorris.io/jokes/random`;
+                const xmlhttp = new XMLHttpRequest();
+
+                xmlhttp.onreadystatechange = function(){
+
+                    if(xmlhttp.readyState === 4 && xmlhttp.status === 200){
+
+                        let result = xmlhttp.responseText;
+
+                        result = JSON.parse(result);
+                        console.log(result);
+
+                        let html = `<h3> <h3/>`;
+
+                            getdisplay.innerHTML = html;
+                    }
+
+                }
+
+                xmlhttp.onprogress = function(){
+                    console.log("On Progress = " , xmlhttp.readyState,xmlhttp.status);
+                }
+
+                xmlhttp.onload = function(){
+                    console.log("On Load = " , xmlhttp.readyState,xmlhttp.status);
+                }
+                
+
+                xmlhttp.open('GET',url,true);
+                xmlhttp.send();
+            }
+        </script>
+    </body>
+</html>
+
+
